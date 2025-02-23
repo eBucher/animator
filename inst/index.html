@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Animator Animation</title>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            display: block;
+            border: 1px solid black;
+        }
+        #slider {
+            width: 80%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type = "range" id = "slider" min = "0" max = "10" value = "0" step = "0.01" />
+    <div style = "display: flex; gap = 12px">
+        <button id = "play" disabled onclick = "playButtonClick()">Loading...</button>
+        <button id = "zoomIn" disabled onclick = "zoomIn()">Zoom In</button>
+        <button id = "zoomOut" onclick = "zoomOut()">Zoom Out</button>
+    </div>
+    <br>
+    <div id = "animationContainer" style = "transform-origin: top center;">
+        <canvas id = "myCanvas" width = "1407" height = "646"></canvas>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <script src = "movementData.js" defer></script>
+    <script src = "image_functions.js" defer></script>
+    <script src = "textData.js" defer></script>
+    <script defer>
+        let image = new Image();
+        let canvas = document.getElementById("myCanvas");
+        let playButton = document.getElementById("play");
+        let ctx = canvas.getContext("2d");
+        let startTime;
+        let currentTime = 0; // Start time for the animation
+        let startTimeReference = null;
+        let offsetSeconds = 0;
+        let animationRunning = false;
+
+        // Linear interpolation function to calculate an intermediate position between two positions
+        function interpolate(startTime, endTime, startPos, endPos, currentTime) {
+            const t = (currentTime - startTime) / (endTime - startTime); // Calculate the percentage between the start and end times
+            return startPos + t * (endPos - startPos); // Linear interpolation formula
+        }
+
+        // Shift the slider by how much time has elapsed since the last time it was updated and then redraw the canvas
+        function updateTimeAndDraw() {
+            currentTime = offsetSeconds + (Date.now() - startTimeReference) / 1000;
+            document.getElementById("slider").value = currentTime;
+            draw();
+        }
+
+        // Draw function to animate the image based on csv data
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.drawImage(loaded_images[bgImagePath], 0, 0, 1407, 646); // Draw the background
+
+            // Loop through movement data and calculate positions based on current time
+            movementData.forEach(data => {
+                if(currentTime >= data.startTime && currentTime <= data.endTime) {
+                    // Calculate the interpolated position between start and end
+                    let x = interpolate(data.startTime, data.endTime, data.startX, data.endX, currentTime);
+                    let y = interpolate(data.startTime, data.endTime, data.startY, data.endY, currentTime);
+                    let width = interpolate(data.startTime, data.endTime, data.startWidth, data.endWidth, currentTime);
+                    let height = interpolate(data.startTime, data.endTime, data.startHeight, data.endHeight, currentTime);
+                    let opacity = interpolate(data.startTime, data.endTime, data.startOpacity, data.endOpacity, currentTime);
+
+                    // Draw the image at the calculated position
+                    ctx.globalAlpha = opacity;
+                    ctx.drawImage(loaded_images[data.image], x - (width/2), y - (height-2), width, height); // The x and y coords are adjusted because the given coords are for the center of the image but the canvas uses coords relative to the top left corner of the image
+                    ctx.globalAlpha = 1; // Reset the opacity back to normal
+                }
+            });
+
+            // Loop through textData and add any text if needed
+            textData.forEach(data => {
+                if(currentTime >= data.startTime && currentTime <= data.endTime) {
+                    // Calculate the interpolated position between start and end
+                    let x = interpolate(data.startTime, data.endTime, data.startX, data.endX, currentTime);
+                    let y = interpolate(data.startTime, data.endTime, data.startY, data.endY, currentTime);
+
+                    // Write the text at the calculated position
+                    ctx.font = data.font;
+                    ctx.fillStyle = data.fillStyle;
+                    ctx.fillText(data.text, x, y);
+                }
+            });
+
+            // Continue the animaiton loop if it's running
+            if(animationRunning) {
+                requestAnimationFrame(updateTimeAndDraw);
+            }
+        }
+
+        // Synchronize the animation with the slider
+        // This only gets triggered when the user actually moves the slider themselves. Not when it gets moved via javascript
+        document.getElementById("slider").addEventListener("input", (e) => {
+            animationRunning = false;
+            playButton.innerText = "Play";
+
+            currentTime = e.target.value;
+            draw();
+        })
+
+        function playButtonClick() {
+            if(animationRunning) {
+                animationRunning = false;
+                playButton.innerText = "Play";
+            } else {
+                animationRunning = true;
+                playButton.innerText = "Pause";
+                offsetSeconds = parseFloat(document.getElementById("slider").value);
+                startTimeReference = Date.now();
+                requestAnimationFrame(updateTimeAndDraw); // Start the animation loop
+            }
+        }
+
+        var zoomLevel = 1.0;
+
+        function zoomIn() {
+            zoomLevel += 0.1;
+            document.getElementById("animationContainer").style.transform = scale(${zoomLevel});
+            if(zoomLevel >= 1) {
+                document.getElementById("zoomIn").disabled = true;
+            } else {
+                document.getElementById("zoomIn").disabled = false;
+            }
+            document.getElementById("zoomOut").disabled = false;
+        }
+
+        function zoomOut() {
+            zoomLevel -= 0.1;
+            document.getElementById("animationContainer").style.transform = scale(${zoomLevel});
+            if(zoomLevel <= 0.2) {
+                document.getElementById("zoomOut").disabled = true;
+            } else {
+                document.getElementById("zoomOut").disabled = false;
+            }
+            document.getElementById("zoomIn").disabled = false;
+        }
+
+
+
+    </script>
+</body>
+</html>
