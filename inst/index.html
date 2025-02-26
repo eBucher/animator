@@ -39,7 +39,6 @@
 
     <script src = "movementData.js" defer></script>
     <script src = "image_functions.js" defer></script>
-    <script src = "textData.js" defer></script>
     <script defer>
         let image = new Image();
         let canvas = document.getElementById("myCanvas");
@@ -133,7 +132,7 @@
 
         function zoomIn() {
             zoomLevel += 0.1;
-            document.getElementById("animationContainer").style.transform = scale(${zoomLevel});
+            document.getElementById("animationContainer").style.transform = `scale(${zoomLevel})`;
             if(zoomLevel >= 1) {
                 document.getElementById("zoomIn").disabled = true;
             } else {
@@ -144,7 +143,7 @@
 
         function zoomOut() {
             zoomLevel -= 0.1;
-            document.getElementById("animationContainer").style.transform = scale(${zoomLevel});
+            document.getElementById("animationContainer").style.transform = `scale(${zoomLevel})`;
             if(zoomLevel <= 0.2) {
                 document.getElementById("zoomOut").disabled = true;
             } else {

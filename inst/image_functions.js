@@ -1,5 +1,4 @@
 let loaded_images = [];
-let bgImagePath = "assets/background.png";
 
 // Return all of the unique values in the given array
 function uniqueValuesInArray(a) {
@@ -39,6 +38,7 @@ function loadImages() {
         let playButton = document.getElementById("play");
         playButton.innerText = "Play";
         playButton.disabled = false;
+        console.log("Ready to go")
     });
 }
 
