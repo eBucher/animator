@@ -31,7 +31,7 @@
     </div>
     <br>
     <div id = "animationContainer" style = "transform-origin: top center;">
-        <canvas id = "myCanvas" width = "1407" height = "646"></canvas>
+        <canvas id = "myCanvas" width = "0" height = "0"></canvas>
     </div>
     <br>
     <br>
@@ -42,6 +42,8 @@
     <script defer>
         let image = new Image();
         let canvas = document.getElementById("myCanvas");
+        let canvasWidth = 0;
+        let canvasHeight = 0;
         let playButton = document.getElementById("play");
         let ctx = canvas.getContext("2d");
         let startTime;
@@ -66,7 +68,7 @@
         // Draw function to animate the image based on csv data
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            ctx.drawImage(loaded_images[bgImagePath], 0, 0, 1407, 646); // Draw the background
+            ctx.drawImage(loaded_images[bgImagePath], 0, 0, canvasWidth, canvasHeight); // Draw the background
 
             // Loop through movement data and calculate positions based on current time
             imageData.forEach(data => {

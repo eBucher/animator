@@ -38,6 +38,12 @@ function loadImages() {
         let playButton = document.getElementById("play");
         playButton.innerText = "Play";
         playButton.disabled = false;
+
+        canvasWidth = loaded_images[bgImagePath].width;
+        canvasHeight = loaded_images[bgImagePath].height;
+        document.getElementById("myCanvas").setAttribute("width", canvasWidth);
+        document.getElementById("myCanvas").setAttribute("height", canvasHeight);
+        console.log(canvasHeight);
         console.log("Ready to go")
     });
 }
