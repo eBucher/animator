@@ -31,9 +31,9 @@ compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NUL
     text_json <- add_text_defaults(text_df) |>
         jsonlite::toJSON()
     js_var_string <- paste0('var bgImagePath = "assets/', basename(bg), '";\n\n')
-    js_var_string <- paste0(js_var_string, "var movementData = ", images_json, ";\n\n")
+    js_var_string <- paste0(js_var_string, "var imageData = ", images_json, ";\n\n")
     js_var_string <- paste0(js_var_string, "var textData = ", text_json, ";\n\n")
-    writeLines(js_var_string, paste0(output_path, "movementData.js"))
+    writeLines(js_var_string, paste0(output_path, "imageData.js"))
 }
 
 

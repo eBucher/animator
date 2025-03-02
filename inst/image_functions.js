@@ -26,7 +26,7 @@ function preloadImage(source) {
 function loadImages() {
     console.log("Loading images...");
 
-    var unique_image_paths = uniqueValuesInArray(getValuesInColumn(movementData, "image"));
+    var unique_image_paths = uniqueValuesInArray(getValuesInColumn(imageData, "image"));
     unique_image_paths = unique_image_paths.concat(bgImagePath);
 
     Promise.all(unique_image_paths.map(preloadImage)).then((images) => {
@@ -42,6 +42,6 @@ function loadImages() {
     });
 }
 
-let maxTime = Math.max(...movementData.map(item => item.endTime)); // Get max end time for the slider
+let maxTime = Math.max(...imageData.map(item => item.endTime)); // Get max end time for the slider
 document.getElementById("slider").max = maxTime; // Set slider max value based on animation end time
 loadImages();

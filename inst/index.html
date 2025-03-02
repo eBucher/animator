@@ -37,7 +37,7 @@
     <br>
     <br>
 
-    <script src = "movementData.js" defer></script>
+    <script src = "imageData.js" defer></script>
     <script src = "image_functions.js" defer></script>
     <script defer>
         let image = new Image();
@@ -69,7 +69,7 @@
             ctx.drawImage(loaded_images[bgImagePath], 0, 0, 1407, 646); // Draw the background
 
             // Loop through movement data and calculate positions based on current time
-            movementData.forEach(data => {
+            imageData.forEach(data => {
                 if(currentTime >= data.startTime && currentTime <= data.endTime) {
                     // Calculate the interpolated position between start and end
                     let x = interpolate(data.startTime, data.endTime, data.startX, data.endX, currentTime);
