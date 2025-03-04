@@ -1,3 +1,19 @@
+#' Convert dataframes of actions into an web page with the animation
+#'
+#' @param path The relative or absolute path to the location where a new folder
+#' will be created called animation_output containing the files necessary
+#' to run the animation.
+#' @param bg The relative or absolute file path to the image that will be used
+#' as the background.
+#' @param warn If set to TRUE and there is already a folder in the given path
+#' called "animation_output", this will prompt you to confirm whether it should
+#' be overwritten. Set to FALSE if you always want it to automatically overwrite
+#' any old animations.
+#' @param images_df A dataframe in the structure provided by images_template()
+#' @param text_df A dataframe in the structure provided by text_template()
+#' @param size The dimensions of the output. If left as NULL, the size of the
+#' background image will be used.
+
 compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL, size = NULL) {
 
     # Set up a folder to store all the output files
