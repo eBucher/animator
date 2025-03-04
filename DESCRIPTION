@@ -1,16 +1,9 @@
 Package: animator
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Create simple animations from your data
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: A simple tool for programmatically creating animations by
+    storing sequences of actions and movements as rows within dataframes.
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.3.2
