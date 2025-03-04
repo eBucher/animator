@@ -82,7 +82,7 @@
 
                     // Draw the image at the calculated position
                     ctx.globalAlpha = opacity;
-                    ctx.drawImage(loaded_images[data.image], x - (width/2), y - (height-2), width, height); // The x and y coords are adjusted because the given coords are for the center of the image but the canvas uses coords relative to the top left corner of the image
+                    ctx.drawImage(loaded_images[data.image], x - (width/2), y - (height/2), width, height); // The x and y coords are adjusted because the given coords are for the center of the image but the canvas uses coords relative to the top left corner of the image
                     ctx.globalAlpha = 1; // Reset the opacity back to normal
                 }
             });
