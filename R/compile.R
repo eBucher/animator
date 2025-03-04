@@ -1,4 +1,4 @@
-compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL) {
+compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL, size = NULL) {
 
     # Set up a folder to store all the output files
     output_path <- set_up_empty_animation_folder(path, warn)
@@ -34,6 +34,15 @@ compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NUL
     js_var_string <- paste0(js_var_string, "var imageData = ", images_json, ";\n\n")
     js_var_string <- paste0(js_var_string, "var textData = ", text_json, ";\n\n")
     writeLines(js_var_string, paste0(output_path, "imageData.js"))
+
+    # If the user provided dimensions for the canvas, sub them into the code
+    # where the canvas size is set
+    if(!is.null(size)) {
+        image_function_file_lines <- readLines(paste0(output_path, "image_functions.js"))
+        image_function_file_lines2 <- gsub(pattern = "canvasWidth = loaded_images\\[bgImagePath\\]\\.width;", replace = paste0("canvasWidth = ", size[1], ";"), x = image_function_file_lines)
+        image_function_file_lines2 <- gsub(pattern = "canvasHeight = loaded_images\\[bgImagePath\\]\\.height;", replace = paste0("canvasHeight = ", size[2], ";"), x = image_function_file_lines2)
+        writeLines(image_function_file_lines2, paste0(output_path, "image_functions.js"))
+    }
 }
 
 
