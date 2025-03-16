@@ -16,6 +16,8 @@
 
 compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL, size = NULL) {
 
+    validate_compile_input(path = path, bg = bg, warn = warn, images_df = images_df, text_df = text_df, size = size)
+
     # Fill in any necessary values with defaults
     images_df <- replace_nas_with_defaults(images_df)
     images_df <- add_image_defaults(images_df)

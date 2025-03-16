@@ -19,7 +19,7 @@ images_template <- function() {
 
 text_template <- function() {
     data.frame(
-        starTime = numeric(0),
+        startTime = numeric(0),
         endTime = numeric(0),
         startX = numeric(0),
         startY = numeric(0),
