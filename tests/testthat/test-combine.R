@@ -112,7 +112,7 @@ test_that("combine_two_dfs works when two columns with the same name have differ
     )
     df2 <- data.frame(
         a = c("A", "B", "C"),
-        c = c(400, 500, 600),
+        c = c(400, 500, 600)
     )
     testthat::expect_equal(rbind(df1, df2), combine_two_dfs(df1, df2) )
 })

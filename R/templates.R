@@ -8,10 +8,10 @@ images_template <- function() {
         endY = numeric(0),
         startWidth = numeric(0),
         startHeight = numeric(0),
-        endWidth = numeric(0),
-        endHeight = numeric(0),
-        startOpacity = numeric(0),
-        endOpacity = numeric(0),
+        endWidth = numeric(0), # Optional
+        endHeight = numeric(0), # Optional
+        startOpacity = numeric(0), #Optional
+        endOpacity = numeric(0), #Optional
         image = character(0)
     )
 }
