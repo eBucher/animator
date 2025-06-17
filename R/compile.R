@@ -19,11 +19,20 @@ compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NUL
     validate_compile_input(path = path, bg = bg, warn = warn, images_df = images_df, text_df = text_df, size = size)
 
     # Fill in any necessary values with defaults
-    images_df <- replace_nas_with_defaults(images_df)
-    images_df <- add_image_defaults(images_df)
+    if(is.null(images_df)) {
+        images_df <- images_template()
+    } else {
+        images_df <- replace_nas_with_defaults(images_df)
+        images_df <- add_image_defaults(images_df)
+    }
 
-    text_df <- replace_nas_with_defaults(text_df)
-    text_df <- add_text_defaults(text_df)
+    if(is.null(text_df)) {
+        text_df <- text_template()
+    } else {
+        text_df <- replace_nas_with_defaults(text_df)
+        text_df <- add_text_defaults(text_df)
+    }
+
 
     # Set up a folder to store all the output files
     output_path <- set_up_empty_animation_folder(path, warn)
