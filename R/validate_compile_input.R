@@ -14,16 +14,16 @@ validate_compile_input <- function(path, bg, warn, images_df, text_df, size) {
         stop("The 'warn' argument must either be TRUE or FALSE. ", warn, " was received.")
     }
 
-    if(is.data.frame(images_df) == FALSE && isnull(images_df) == FALSE) {
+    if(is.data.frame(images_df) == FALSE && is.null(images_df) == FALSE) {
         stop("The 'images_df' argument must be a dataframe.")
     }
 
-    if(is.data.frame(text_df) == FALSE && isnull(text_df) == FALSE) {
+    if(is.data.frame(text_df) == FALSE && is.null(text_df) == FALSE) {
         stop("The 'text_df' argument must be a dataframe.")
     }
 
-    if(length(size) != 2) {
-        stop("The size argument must be a vector with two elements in the form of c(width, height).")
+    if(length(size) != 2 && !is.null(size)) {
+        stop("The size argument must be null or a vector with two elements in the form of c(width, height).")
     }
 
 
