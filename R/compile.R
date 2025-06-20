@@ -9,8 +9,10 @@
 #' called "animation_output", this will prompt you to confirm whether it should
 #' be overwritten. Set to FALSE if you always want it to automatically overwrite
 #' any old animations.
-#' @param images_df A dataframe in the structure provided by images_template()
-#' @param text_df A dataframe in the structure provided by text_template()
+#' @param images_df A dataframe specifying how images should be displayed during
+#' the animation. See [images_template()] for details.
+#' @param text_df A dataframe specifying how text should be displayed during the
+#' animation. See [text_template()] for details.
 #' @param size The dimensions of the output. If left as NULL, the size of the
 #' background image will be used.
 

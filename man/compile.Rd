@@ -26,9 +26,11 @@ called "animation_output", this will prompt you to confirm whether it should
 be overwritten. Set to FALSE if you always want it to automatically overwrite
 any old animations.}
 
-\item{images_df}{A dataframe in the structure provided by images_template()}
+\item{images_df}{A dataframe specifying how images should be displayed during
+the animation. See \code{\link[=images_template]{images_template()}} for details.}
 
-\item{text_df}{A dataframe in the structure provided by text_template()}
+\item{text_df}{A dataframe specifying how text should be displayed during the
+animation. See \code{\link[=text_template]{text_template()}} for details.}
 
 \item{size}{The dimensions of the output. If left as NULL, the size of the
 background image will be used.}
