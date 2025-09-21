@@ -175,7 +175,10 @@ images_df <- data.frame(
     startWidth = c(4, 4),
     startHeight = c(4, 4),
     opacity = 1,
-    image = c("inst/red_square.png", "inst/blue_square.png")
+    image = c(
+        paste0(system.file(package = 'animator'), "/red_square.png"), 
+        paste0(system.file(package = 'animator'), "/blue_square.png")
+    )
 )
 
 animator::compile(
