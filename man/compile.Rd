@@ -10,7 +10,8 @@ compile(
   warn = TRUE,
   images_df = NULL,
   text_df = NULL,
-  size = NULL
+  size = NULL,
+  debug = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,9 @@ animation. See \code{\link[=text_template]{text_template()}} for details.}
 
 \item{size}{The dimensions of the output. If left as NULL, the size of the
 background image will be used.}
+
+\item{debug}{Whether to display debugging information below the animation
+such as where the mouse is, the current time elapsed, etc.}
 }
 \description{
 Convert dataframes of actions into an web page with the animation

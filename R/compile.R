@@ -15,8 +15,10 @@
 #' animation. See [text_template()] for details.
 #' @param size The dimensions of the output. If left as NULL, the size of the
 #' background image will be used.
+#' @param debug Whether to display debugging information below the animation
+#' such as where the mouse is, the current time elapsed, etc.
 
-compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL, size = NULL) {
+compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NULL, size = NULL, debug = FALSE) {
 
     validate_compile_input(path = path, bg = bg, warn = warn, images_df = images_df, text_df = text_df, size = size)
 
@@ -78,6 +80,19 @@ compile <- function(path = ".", bg, warn = TRUE, images_df = NULL, text_df = NUL
         image_function_file_lines2 <- gsub(pattern = "canvasWidth = loaded_images\\[bgImagePath\\]\\.width;", replace = paste0("canvasWidth = ", size[1], ";"), x = image_function_file_lines)
         image_function_file_lines2 <- gsub(pattern = "canvasHeight = loaded_images\\[bgImagePath\\]\\.height;", replace = paste0("canvasHeight = ", size[2], ";"), x = image_function_file_lines2)
         writeLines(image_function_file_lines2, paste0(output_path, "image_functions.js"))
+    }
+
+    # If the caller enabled debug mode, inject the code used for displaying the debug information
+    if(debug) {
+        main_js_lines <- readLines(paste0(output_path, "main.js"))
+        main_js_lines2 <- gsub(pattern = "// INSERT DEBUG INIT HERE //", replace = "initDebug()", x = main_js_lines)
+        main_js_lines2 <- gsub(
+            pattern = "// INSERT DEBUG SECONDS ELAPSED HERE //",
+            replace = 'document.getElementById("secondsElapsed").innerHTML = "<b>Seconds Elapsed: </b>" + currentTime;',
+            x = main_js_lines2
+        )
+        print(main_js_lines2)
+        writeLines(main_js_lines2, paste0(output_path, "main.js"))
     }
 }
 
